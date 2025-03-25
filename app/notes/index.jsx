@@ -7,6 +7,8 @@ import {
     Alert,
     ActivityIndicator,
  } from "react-native";
+ import { useRouter } from "expo-router";
+ import { useAuth } from '@/contexts/AuthContext';
 import NoteList from "@/components/NoteList";
 import AddNoteModal from "@/components/AddNoteModal";
 import noteService from '@/services/noteService';
@@ -14,18 +16,32 @@ import noteService from '@/services/noteService';
 
 
 const NoteScreen = () => {
+    const router = useRouter();
+    const { user, loading: authLoading } = useAuth();
+
     const [notes, setNotes]= useState([]);
     const [modalVisible, setModalVisible]= useState(false);
     const [newNote, setNewNote]= useState('');
     const [loading, setLoading]= useState(true);
     const [error, setError]= useState(null);
+   
+    useEffect (() => {
+        if(!authLoading && !user) {    
+            router.replace('/auth')
+        }
+    }, [user, authLoading]);
 
     useEffect (() => {
-        fetchNotes();
-    }, []);
+        if (user) {
+            fetchNotes();
+        }
+       
+    }, [user]);
+
 
     const fetchNotes = async () => {
         setLoading(true);
+        // console.log("Fetching notes started"); // Debugging
         const response = await noteService.getNotes();
         // console.log('Notes in UI:', response)
 
@@ -33,12 +49,13 @@ const NoteScreen = () => {
             setError(response.error);
             Alert.alert('Error', response.error)
         }else {
-            console.log('Setting Notes to:', response.data);
+            // console.log('Setting Notes to:', response.data);
             setNotes(response.data || []);
             setError(null);
         }
 
         setLoading(false);
+        // console.log("fetching notes finished, loading is now false"); //debugging
     };
 
     //Add new Note
@@ -120,8 +137,7 @@ const NoteScreen = () => {
         newNote = {newNote}
         setNewNote = {setNewNote}
         addNote ={addNote}
-        />
-        
+        />       
     </View>
 
      );
@@ -159,6 +175,4 @@ const styles = StyleSheet.create({
     }
 })
     
-
- 
 export default NoteScreen;

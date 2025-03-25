@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { TextInput } from "react-native-web";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+
 
 const NoteItem = ({ note, onDelete, onEdit }) => {
     const [isEditing, setIsEditing]= useState(false);
@@ -32,7 +32,7 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
             {isEditing ? (
                 <TouchableOpacity onPress={() => {
                     handleSave();
-                    inputRef.current?.blur;
+                    inputRef.current?.blur();
                 }}>
                     <Text style={styles.edit}>💾</Text>
                 </TouchableOpacity>

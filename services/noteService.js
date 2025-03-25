@@ -48,9 +48,9 @@ const noteService = {
         return{data: response};
     }
 
-    catch (err) {  // ✅ Use 'err' instead of 'error'
-        // console.error("Error adding note:", err.message);
-        return { error: err.message };  // ✅ Returning error message
+    catch (error) {  
+        // console.error("Error adding note:", error.message);
+        return { error: error.message };  // ✅ Returning error message
     }
 },
 
@@ -73,9 +73,9 @@ const noteService = {
         console.log("Deleting note with ID:", id); // Debugging
 
         const response = await databaseService.deleteDocument(dbId, colId, id);
-        console.log("Note deleted successfully!");
+        //console.log("Note deleted successfully!");
         if(response?.error) {
-            console.error("Error deleting document:", error.message);
+            //console.error("Error deleting document:", error.message);
             return {error: response.error};
         }
         return{success: true};
