@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.helenid.notesapp"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "02f0b1ab-8a35-46b2-b94d-ffdb4a3635d3"
+      }
+    },
+    "owner": "helenid"
   }
 }

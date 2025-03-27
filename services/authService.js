@@ -54,7 +54,7 @@ async logout() {
         // console.log('Logout error:', error.message )
         return {
             
-            error: error.message ||  'Log out failed, Please try again'
+        error: error.message ||  'Log out failed, Please try again'
         }
     }
 }

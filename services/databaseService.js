@@ -2,13 +2,13 @@ import { database, ID } from "./appwrite";
 
 const databaseService = {
     //List Documents
-    async listDocuments(dbId, colId) {
+    async listDocuments(dbId, colId, queries = []) {
         // console.log('Raw Database Response:', response);
         // console.log('Extracted Documents:', response.documents);
 
         try {
-            const response = await database.listDocuments(dbId, colId);
-            return response.documents || [];
+            const response = await database.listDocuments(dbId, colId, queries);
+            return{ data: response.documents || [], error: null };
         }catch(error) {
             console.log('Error fetching documents:', error.message);
             return { error: error.message };
